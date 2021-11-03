@@ -1,0 +1,26 @@
+. "src/init.sh"
+
+function assistant()
+{
+  action="$1"
+  shift
+
+  case "$action" in
+    todo)
+      (
+        . "$todo_source"
+
+        todo "$@"
+        return "$?"
+      )
+      ;;
+    *)
+      printf "This option is invalid. Please try one of these:\n"
+      printf -- "- todo\n"
+      return 1
+      ;;
+  esac
+}
+
+init
+assistant "$@"
