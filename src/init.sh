@@ -21,4 +21,32 @@ function init()
 
   mkdir -p lib
   >> $todo_file
+
+  check_file
+}
+
+function check_file()
+{
+  declare -a empty_tags
+  local cont=0
+
+  mkdir -p "$libdir"
+  > "$next_todo"
+
+  while IFS= read -r line; do
+    if [[ -z "$line" ]]; then
+      if [[ cont -eq 1 ]]; then
+        printf '%s\n' "Empty" >> "$next_todo"
+      fi
+
+      cont=0
+    else
+      cont=$(($cont + 1))
+    fi
+
+    printf '%s\n' "$line" >> "$next_todo"
+  done < "$todo_file"
+
+  mv "$next_todo" "$todo_file"
+  rm "$next_todo"
 }
