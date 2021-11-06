@@ -19,8 +19,8 @@ function init()
   file_directory=$(dirname ${BASH_SOURCE[0]})
   cd "$file_directory/.."
 
-  mkdir -p lib
-  >> $todo_file
+  mkdir -p "$libdir"
+  >> "$todo_file"
 
   check_file
 }
@@ -30,7 +30,7 @@ function check_file()
   declare -a empty_tags
   local cont=0
 
-  mkdir -p "$libdir"
+  mkdir -p "$tmp"
   > "$next_todo"
 
   while IFS= read -r line; do
@@ -48,5 +48,5 @@ function check_file()
   done < "$todo_file"
 
   mv "$next_todo" "$todo_file"
-  rm "$next_todo"
+  rmdir "$tmp"
 }
