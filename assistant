@@ -1,5 +1,7 @@
 #! /bin/bash
 
+file_directory=$(dirname ${BASH_SOURCE[0]})
+cd "$file_directory"
 . "src/init.sh"
 
 function assistant()

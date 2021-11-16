@@ -37,13 +37,28 @@ function colored_print()
 
 function read_file()
 {
+  local search_tag="${1^^}"
+  local found_tag=false
+
+  if [[ -n "$search_tag" ]]; then
+    search_tag="$search_tag:"
+  fi
+
   while IFS= read -r line; do
     if [[ -z "$line" ]]; then
       read -r line
-      printf "\n"
-      colored_print BLUECOLOR "${line^^}"
+
+      found_tag=false
+      if [[ -z "$search_tag" || "$line" = "$search_tag" ]]; then
+        found_tag=true
+        
+        printf "\n"
+        colored_print BLUECOLOR "${line^^}"
+      fi
     else
-      printf -- "- %s\n" "$line"
+      if [[ "$found_tag" = true ]]; then
+        printf -- "- %s\n" "$line"
+      fi
     fi
   done < "$todo_file"
   printf "\n"
@@ -163,7 +178,7 @@ function todo()
   shift "$(($OPTIND - 1))"
 
   if [[ $list -gt 0 ]]; then
-    read_file
+    read_file "$1"
   elif [[ $add -gt 0 ]]; then
     add_todo "$@"
   elif [[ $delete -gt 0 ]]; then

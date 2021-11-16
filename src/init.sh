@@ -16,9 +16,6 @@ export next_todo
 
 function init()
 {
-  file_directory=$(dirname ${BASH_SOURCE[0]})
-  cd "$file_directory/.."
-
   mkdir -p "$libdir"
   >> "$todo_file"
 
