@@ -1,0 +1,6 @@
+libdir = "lib"
+todo_file = libdir + "/todo.txt"
+srcdir = "src"
+todo_source = srcdir + "/todo.sh"
+tmp = ".tmp"
+next_todo = tmp + "/todo.txt"

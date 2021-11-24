@@ -1,2 +1,3 @@
 .vscode
 lib/todo.txt
+src/__pycache__

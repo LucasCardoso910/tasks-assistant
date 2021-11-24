@@ -1,8 +1,21 @@
 #! /bin/bash
 
+src="src"
+todo_source="$src/todo.sh"
+init="$src/init.py"
+read_file="$src/read_file.py"
+add_todo="$src/add_todo.py"
+delete_todo="$src/delete_todo.py"
+
+export src
+export todo_source
+export init
+export read_todo
+export add_todo
+export delete_todo
+
 file_directory=$(dirname ${BASH_SOURCE[0]})
 cd "$file_directory"
-. "src/init.sh"
 
 function assistant()
 {
@@ -26,5 +39,5 @@ function assistant()
   esac
 }
 
-init
+python3 "$init"
 assistant "$@"
